@@ -1,0 +1,1478 @@
+{
+	"info": {
+		"_postman_id": "35991f87-26cc-4829-8900-34f0298708e5",
+		"name": "Create post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26059494"
+	},
+	"item": [
+		{
+			"name": "authorization_login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"token_user\", jsonData.token);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "okslar9292",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "b20a8c4d39",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/login",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without delay post to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post title valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post description valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post content valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post image valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "u8hoaFe54/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Получается идеальная инструкция по сборке условного шкафа",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Получается идеальная инструкция по сборке условного шкафа, после которой не должно остаться лишних деталей, а шкаф будет выглядеть как на картинке.",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"description": "1. Форматы png, jpg, jpeg\n2. Размер не более 2Mb\n3. Поддерживает загрузку с устройства и drug&drop\n4. При успешной загрузке показывает название фото и\nпревью фото c соотношением сторон 1:1.\n5. Если фото не загружено вешается заглушка",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"description": "не более 40 символов",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"description": "не более 100 символов",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Мифы о китах проникли с востока к грекам и таким образом были внесены в апокрифы. В греческом «Физиологе», где кит называется άσπιδοχελώνη, о нём приводится то же сказание, что и в сборнике арабских сказок «1001 ночь»: «Кит похож на остров; корабельщики пристают к нему и, вбив колья, привязывают к ним корабли; чудовище не трогается; но как только разведут на его хребте огонь, он тотчас уходит в глубину, увлекая с собой обманутых пловцов». Апокрифы под влиянием общераспространённых на Востоке сказаний о Земле, покоящейся на каком-нибудь животном, сделали китов устоями Земли. По «Беседе трёх святителей», Земля плавает поверх великого моря на трёх китах больших и на 30 малых; последние прикрывают собой 30 оконец морских; «емлют те киты десятую часть райского благоухания и от того сыты бывают». В сказании Псевдо-Мефодия Патарского о Ное всемирный потоп объясняется тем, что киты, по повелению Бога, отступили от морских оконец, вследствие чего вода пошла на землю. «Беседа Иерусалимская» и «Голубиная книга» связывают движение кита с кончиной мира. По «Голубиной книге» — «Кит-рыба всем рыбам мати. На Китах-рыбах земля основана; когда Кит-рыба поворотится, тогда белый свет наш покончится».",
+							"description": "не более 1000 символов ",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"description": "Невозможно установить дату и время раньше текущего момента",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid delay post to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Получается такая инструкция по сборке шкафа",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "1990-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid image size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "T_MtGeqFW/photo (33 of 115).jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post with invalid image format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "utOOgVFPS/dog.gif"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without title",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "c4WdQuOui/09a85c38.jpg"
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post without photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Новый пост 1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Это новый пост",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Создание нового поста в рамках тестирования API",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "0/1",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "2023-10-01",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new post all empty fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Auth-Token",
+						"value": "{{token_user}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "isDraft",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "delayPublishTo",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test-stand.gb.ru/gateway/posts",
+					"protocol": "https",
+					"host": [
+						"test-stand",
+						"gb",
+						"ru"
+					],
+					"path": [
+						"gateway",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token_user",
+			"value": ""
+		}
+	]
+}
